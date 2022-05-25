@@ -8,10 +8,10 @@ return productsModels;
 };
 
 const findById = async (id) => {
-  const [productsModels] = await connections.execute(
+  const [productsModelsData] = await connections.execute(
     'SELECT * FROM StoreManager.products WHERE id = ?;', [id],
 );
-return productsModels;
+return productsModelsData;
 };
 
 module.exports = {

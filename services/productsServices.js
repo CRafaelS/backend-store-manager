@@ -8,10 +8,10 @@ const getAll = async () => {
 
 const findById = async (id) => {
   const productsServices = await productsModels.findById(id);
+  const productsData = productsServices.find((data) => data.id === +id);
+  if (!productsData) return null;
 
-  if (!productsServices) return null;
-
-  return productsServices;
+  return productsData;
 };
 
 module.exports = {
