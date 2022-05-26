@@ -17,12 +17,7 @@ const findById = async (id) => {
   const salesServices = await salesModels.findById(id);
   if (salesServices.length === 0) return null;
 
-  return salesServices.map((data) => ({
-    date: data.date,
-    productId: data.product_id,
-    quantity: data.quantity,
-  }));
-};
+  return salesServices.map(reorganizeSales)};
 
 module.exports = {
   getAll,
