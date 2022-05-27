@@ -10,12 +10,12 @@ return salesModels;
 };
 
 const findById = async (id) => {
-  const [productsModelsData] = await connections.execute(
+  const [salesModelsData] = await connections.execute(
     `SELECT s.date, p.product_id, p.quantity 
     FROM StoreManager.sales_products AS p
     INNER JOIN StoreManager.sales AS s ON p.sale_id = s.id WHERE sale_id = ?;`, [id],
 );
-return productsModelsData;
+return salesModelsData;
 };
 
 module.exports = {

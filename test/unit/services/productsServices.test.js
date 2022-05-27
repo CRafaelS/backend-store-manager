@@ -43,7 +43,7 @@ describe('Todos os produtos', () => {
     expect(item).to.deep.an('object');
   });
 
-  it('O objto tem as seguintes chaves: "id", "name", "quantity"', async () => {
+  it('O objto tem as seguintes chaves: "id", "name" e "quantity"', async () => {
     const [item] = await productsServices.getAll();
 
     expect(item).to.include.all.keys('id', 'name', 'quantity')
