@@ -69,6 +69,12 @@ describe('Busca apenas um produto no BD por seu ID', () => {
       const response = await productsModels.findById();
       expect(response).to.be.empty;
     });
+
+    it('o retorno é um boolean', async () => {
+      const response = await productsServices.findById(1);
+
+      expect(response).to.be.a('boolean');
+    });
   });
 
   describe('quando existe um produto com o ID informado', () => {

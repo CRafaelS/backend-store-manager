@@ -18,7 +18,11 @@ const create = async (name, quantity) => {
   const [productsModels] = await connections.execute(
     'INSERT INTO products (name, quantity) VALUES (?, ?);', [name, quantity],
 );
-return productsModels;
+return {
+  id: productsModels.insertId,
+  name,
+  quantity,
+};
 };
 
 module.exports = {
