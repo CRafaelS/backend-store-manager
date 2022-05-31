@@ -23,8 +23,10 @@ const create = async (name, quantity) => {
 };
 
 const update = async (id, name, quantity) => {
-  const productsServices = await productsModels.update(id, name, quantity);
-  return productsServices;
+  const allProducts = await productsModels.getAll();
+  const findIdProducts = allProducts.some((item) => item.id === Number(id));
+  await productsModels.update(id, name, quantity);
+  return findIdProducts;
 };
 
 module.exports = {  
