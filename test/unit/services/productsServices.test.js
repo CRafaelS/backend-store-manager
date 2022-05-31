@@ -60,57 +60,54 @@ describe('Busca apenas um produto no BD por seu ID', () => {
   })
 
   describe('quando não existe um produto com o ID informado', () => {
-    it('retorna um array', async () => {
-      const response = await productsModels.findById();
-      expect(response).to.be.a('array');
-    });
-
-    it('retorna um array vazio', async () => {
-      const response = await productsModels.findById();
-      expect(response).to.be.empty;
-    });
-
     it('o retorno é um boolean', async () => {
       const response = await productsServices.findById(1);
 
       expect(response).to.be.a('boolean');
     });
+
+    it('o retorno é um boolean', async () => {
+      const response = await productsServices.findById(1);
+
+      expect(response).to.be.false;
+    });
+  });
+});
+
+describe('quando existe um produto com o ID informado', () => {
+
+  beforeEach(() => {
+    sinon.stub(productsModels, 'findById')
+      .resolves(
+        [{
+          id: 1,
+          name: "produto A",
+          quantity: 10
+        }]
+      );
   });
 
-  describe('quando existe um produto com o ID informado', () => {
+  afterEach(() => {
+    productsModels.findById.restore();
+  })
 
-    beforeEach(() => {
-      sinon.stub(productsServices, 'findById')
-        .resolves(
-          {
-            "id": 1,
-            "name": "produto A",
-            "quantity": 10
-          }
-        );
-    });
+  it('retorna um objeto', async () => {
+    const [response] = await productsServices.findById(1);
+    console.log(response);
 
-    afterEach(() => {
-      productsServices.findById.restore();
-    })
+    expect(response).to.deep.an('object');
+  });
 
-    it('retorna um objeto', async () => {
-      const response = await productsServices.findById(1);
+  it('o objeto não está vazio', async () => {
+    const response = await productsServices.findById(1);
 
-      expect(response).to.deep.an('object');
-    });
+    expect(response).to.be.not.empty;
+  });
 
-    it('o objeto não está vazio', async () => {
-      const response = await productsServices.findById(1);
+  it('tal objeto possui as propriedades: "id", "name" e "quantity"', async () => {
+    const [item] = await productsServices.findById(1);
 
-      expect(response).to.be.not.empty;
-    });
-
-    it('tal objeto possui as propriedades: "id", "name" e "quantity"', async () => {
-      const item = await productsServices.findById(1);
-
-      expect(item).to.include.all.keys('id', 'name', 'quantity');
-    });
+    expect(item).to.include.all.keys('id', 'name', 'quantity');
   });
 });
 

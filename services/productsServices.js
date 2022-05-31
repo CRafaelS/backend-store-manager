@@ -8,10 +8,9 @@ const getAll = async () => {
 
 const findById = async (id) => {
   const productsServices = await productsModels.findById(id);
-  const productsData = productsServices.find((data) => data.id === +id);
-  if (!productsData) return false;
+  if (productsServices.length === 0) return false;
 
-  return productsData;
+  return productsServices;
 };
 
 const create = async (name, quantity) => {
@@ -23,8 +22,14 @@ const create = async (name, quantity) => {
   return productsServices;
 };
 
+const update = async (name, quantity) => {
+  const productsServices = await productsModels.update(name, quantity);
+  return productsServices;
+};
+
 module.exports = {  
   getAll,
   findById,
   create,
+  update,
 };
