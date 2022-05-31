@@ -24,8 +24,19 @@ const create = async (req, res) => {
   res.status(201).json(productsControllers);
 };
 
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { name, quantity } = req.body;
+  await productsServices.update(id, name, quantity);
+
+  // if (!productsControllers) return res.status(409).json({ message: 'Product already exists' });
+
+  res.status(200).json({ id: Number(id), name, quantity });
+};
+
 module.exports = {
   getAll,
   findById,
   create,
+  update,
 };

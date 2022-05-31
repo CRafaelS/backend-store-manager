@@ -22,8 +22,8 @@ const create = async (name, quantity) => {
   return productsServices;
 };
 
-const update = async (name, quantity) => {
-  const productsServices = await productsModels.update(name, quantity);
+const update = async (id, name, quantity) => {
+  const productsServices = await productsModels.update(id, name, quantity);
   return productsServices;
 };
 
