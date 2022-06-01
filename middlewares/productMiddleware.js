@@ -1,6 +1,6 @@
-// const joi = require('joi');
+// const Joi = require('joi');
 
-// const validateName = (req, res, next) => {
-//   const { name } = req.body;
-//   name = 
-// }
+// const validateName = Joi.object({
+//   name: Joi.string().min(5).required(),
+//   quantity: Joi.string().required(),
+// })

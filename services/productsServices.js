@@ -7,8 +7,8 @@ const getAll = async () => {
 };
 
 const findById = async (id) => {
-  const productsServices = await productsModels.findById(id);
-  if (productsServices.length === 0) return false;
+  const [productsServices] = await productsModels.findById(id);
+  if (!productsServices) return false;
 
   return productsServices;
 };
