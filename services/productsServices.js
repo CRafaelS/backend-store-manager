@@ -29,9 +29,17 @@ const update = async (id, name, quantity) => {
   return findIdProducts;
 };
 
+const deleteProduct = async (id) => {
+  const allProducts = await productsModels.getAll();
+  const findIdProducts = allProducts.some((item) => item.id === Number(id));
+  await productsModels.deleteProduct(id);
+  return findIdProducts;
+};
+
 module.exports = {  
   getAll,
   findById,
   create,
   update,
+  deleteProduct,
 };
