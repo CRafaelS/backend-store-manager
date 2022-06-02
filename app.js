@@ -1,6 +1,10 @@
 const express = require('express');
 const productsControllers = require('./controllers/productsControllers');
 const salesControllers = require('./controllers/salesControllers');
+const { 
+  validateProductName, 
+  validateProductQuantity,
+} = require('./middlewares/productMiddleware');
 
 const app = express();
 app.use(express.json());
@@ -12,7 +16,7 @@ app.get('/', (_request, response) => {
 
 app.get('/products', productsControllers.getAll);
 app.get('/products/:id', productsControllers.findById);
-app.post('/products', productsControllers.create);
+app.post('/products', validateProductName, validateProductQuantity, productsControllers.create);
 app.put('/products/:id', productsControllers.update);
 app.delete('/products/:id', productsControllers.deleteProduct);
 

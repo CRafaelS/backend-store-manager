@@ -92,7 +92,7 @@ describe('quando existe um produto com o ID informado', () => {
   })
 
   it('retorna um objeto', async () => {
-    const [response] = await productsServices.findById(1);
+    const response = await productsServices.findById(1);
     console.log(response);
 
     expect(response).to.deep.an('object');
@@ -105,7 +105,7 @@ describe('quando existe um produto com o ID informado', () => {
   });
 
   it('tal objeto possui as propriedades: "id", "name" e "quantity"', async () => {
-    const [item] = await productsServices.findById(1);
+    const item = await productsServices.findById(1);
 
     expect(item).to.include.all.keys('id', 'name', 'quantity');
   });
