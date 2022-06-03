@@ -24,8 +24,19 @@ const addSaleProduct = async (req, res) => {
   res.status(201).json(salesControllers);
 };
 
+const updateSaleProduct = async (req, res) => {
+  const { id } = req.params;
+  const array = req.body;
+  const salesControllers = await salesServices.updateSaleProduct(id, array);
+
+  if (!salesControllers) return res.status(400).json({ message: 'Sale not found' });
+
+  res.status(200).json(salesControllers);
+};
+
 module.exports = {
   getAll,
   findById,
   addSaleProduct,
+  updateSaleProduct,
 };

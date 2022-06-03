@@ -31,8 +31,19 @@ const addSaleProduct = async (array) => {
   };
 };
 
+const updateSaleProduct = async (id, array) => {
+    Promise.all(array.map(async ({ productId, quantity }) => { 
+      await salesModels.updateSaleProduct(id, productId, quantity);
+  }));
+  return {
+    saleId: id,
+    itemUpdated: array,
+  };
+};
+
 module.exports = {
   getAll,
   findById,
   addSaleProduct,
+  updateSaleProduct,
 };
