@@ -20,7 +20,19 @@ const findById = async (id) => {
   return salesServices.map(reorganizeSales);
 };
 
+const addSaleProduct = async (array) => {
+  const { id } = await salesModels.addIdSale();
+    Promise.all(array.map(async ({ productId, quantity }) => { 
+      await salesModels.addSaleProduct(id, productId, quantity);
+  }));
+  return {
+    id,
+    itemsSold: array,
+  };
+};
+
 module.exports = {
   getAll,
   findById,
+  addSaleProduct,
 };

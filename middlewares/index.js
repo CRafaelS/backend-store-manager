@@ -16,7 +16,6 @@ const validateProductName = (req, res, next) => {
   const { error } = validateName.validate(req.body);
   if (error) {
     const typeErro = error.details[0].type;
-    console.log(typeErro);
     if (typeErro === 'string.min') {
       return res.status(422).json({ message: error.message });
     }
@@ -31,7 +30,6 @@ const validateProductQuantity = (req, res, next) => {
   const { error } = validateQuantity.validate(req.body);
   if (error) {
     const typeErro = error.details[0].type;
-    console.log(typeErro);
     if (typeErro === 'number.min') {
       return res.status(422).json({ message: error.message });
     }

@@ -15,7 +15,17 @@ const findById = async (req, res) => {
   res.status(200).json(salesControllers);
 };
 
+const addSaleProduct = async (req, res) => {
+  const array = req.body;
+  const salesControllers = await salesServices.addSaleProduct(array);
+
+  if (!salesControllers) return res.status(400).json({ message: 'Sale not found' });
+
+  res.status(201).json(salesControllers);
+};
+
 module.exports = {
   getAll,
   findById,
+  addSaleProduct,
 };
