@@ -44,3 +44,34 @@ describe('Todos os dados de produtos', async () => {
     expect(response.json.calledWith(sinon.match.array)).to.be.equal(true);
   });
 });
+
+describe('Retorna os dados filtrados pelo ID', async () => {
+  const response = {};
+  const request = {};
+
+  beforeEach(() => {  
+    request.params = { id:1 };
+
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(productsServices, 'findById')
+      .resolves([
+        {
+          "id": 1,
+          "name": "produto A",
+          "quantity": 10
+        },
+      ]);
+  })
+
+  afterEach(() => {
+    productsServices.findById.restore();
+  });
+
+  it('é chamado o método "status" passando o código 200', async () => {
+    await productsControllers.findById(request, response);
+
+    expect(response.status.calledWith(200)).to.be.equal(true);
+  });
+});

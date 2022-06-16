@@ -35,6 +35,8 @@ const updateSaleProduct = async (id, array) => {
     Promise.all(array.map(async ({ productId, quantity }) => { 
       await salesModels.updateSaleProduct(id, productId, quantity);
   }));
+  const findId = await findById(id);
+  if (!findId) return false;
   return {
     saleId: id,
     itemUpdated: array,

@@ -19,10 +19,10 @@ const create = async (name, quantity) => {
     'INSERT INTO products (name, quantity) VALUES (?, ?);', [name, quantity],
 );
 return {
-  id: productsModels.insertId,
-  name,
-  quantity,
-};
+    id: productsModels.insertId,
+    name,
+    quantity,
+  };
 };
 
 const update = async (id, name, quantity) => {

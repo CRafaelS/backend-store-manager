@@ -29,7 +29,7 @@ const updateSaleProduct = async (req, res) => {
   const array = req.body;
   const salesControllers = await salesServices.updateSaleProduct(id, array);
 
-  if (!salesControllers) return res.status(400).json({ message: 'Sale not found' });
+ if (!salesControllers) return res.status(400).json({ message: 'Sale not found' });
 
   res.status(200).json(salesControllers);
 };

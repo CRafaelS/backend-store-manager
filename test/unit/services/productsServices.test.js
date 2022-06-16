@@ -93,7 +93,6 @@ describe('quando existe um produto com o ID informado', () => {
 
   it('retorna um objeto', async () => {
     const response = await productsServices.findById(1);
-    console.log(response);
 
     expect(response).to.deep.an('object');
   });
@@ -111,3 +110,34 @@ describe('quando existe um produto com o ID informado', () => {
   });
 });
 
+describe('Cria um produto novo', () => {
+
+  beforeEach(() => {
+    sinon.stub(productsModels, 'create')
+      .resolves(
+        { "id": 1, "name": "produto", "quantity": 10 }
+      );
+  });
+
+  afterEach(() => {
+    productsModels.create.restore();
+  })
+
+  it('retorna um objeto', async () => {
+    const response = await productsServices.create({ "name": "produto", "quantity": 10 });
+
+    expect(response).to.deep.an('object');
+  });
+
+  it('o objeto não está vazio', async () => {
+    const response = await productsServices.create({ "name": "produto", "quantity": 10 });
+
+    expect(response).to.be.not.empty;
+  });
+
+  it('tal objeto possui as propriedades: "id", "name" e "quantity"', async () => {
+    const item = await productsServices.create({ "name": "produto", "quantity": 10 });
+
+    expect(item).to.include.all.keys('id', 'name', 'quantity');
+  });
+});

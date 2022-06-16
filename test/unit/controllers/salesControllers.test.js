@@ -46,3 +46,41 @@ describe('Todos os dados de produtos', async () => {
     expect(response.json.calledWith(sinon.match.array)).to.be.equal(true);
   });
 });
+
+describe('Dados filtrados pelo ID', async () => {
+  const response = {};
+  const request = {};
+
+  beforeEach(() => {
+    request.params = { id:1 };
+
+    response.status = sinon.stub().returns(response);
+    response.json = sinon.stub().returns();
+
+    sinon.stub(salesServices, 'findById')
+      .resolves([
+        {
+          "saleId": 1,
+          "date": "2021-09-09T04:54:29.000Z",
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "saleId": 1,
+          "date": "2021-09-09T04:54:54.000Z",
+          "productId": 2,
+          "quantity": 2
+        }
+      ]);
+  })
+
+  afterEach(() => {
+    salesServices.findById.restore();
+  });
+
+  it('é chamado o método "status" passando o código 200', async () => {
+    await salesControllers.findById(request, response);
+
+    expect(response.status.calledWith(200)).to.be.equal(true);
+  });
+});
