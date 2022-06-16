@@ -43,9 +43,19 @@ const updateSaleProduct = async (id, array) => {
   };
 };
 
+const deleteSaleProduct = async (id) => {
+  const salesServices = await salesModels.getAll();
+  console.log(salesServices);
+  const findIdSales = salesServices.some((item) => item.sale_id === Number(id));
+  console.log('findIdSales', findIdSales);
+  await salesModels.deleteSaleProduct(id);
+  return findIdSales;
+};
+
 module.exports = {
   getAll,
   findById,
   addSaleProduct,
   updateSaleProduct,
+  deleteSaleProduct,
 };
